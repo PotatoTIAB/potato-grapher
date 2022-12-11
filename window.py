@@ -22,10 +22,10 @@ class Plane(Canvas):
 		self.height = kwargs["height"]
 		self.padding = padding
 
-		self.bind("<Button-1>", self.on_click)
-		self.bind("<B1-Motion>", self.on_motion)
-		self.x = 0
-		self.y = 0
+		# self.bind("<Button-1>", self.on_click)
+		# self.bind("<B1-Motion>", self.on_motion)
+		# self.x = 0
+		# self.y = 0
 
 		self.draw_plane()
 	
