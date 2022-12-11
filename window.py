@@ -5,7 +5,7 @@ import math
 class Window(Tk):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.canvas = Plane(self, width=600, height=600, background="#eeeeee")
+		self.canvas = Plane(self, width=600, height=600, padding=20, background="#eeeeee")
 
 		self.canvas.pack()
 		# self.canvas.graph(lambda x: (x))
@@ -15,7 +15,7 @@ class Window(Tk):
 
 
 class Plane(Canvas):
-	def __init__(self, *args, padding=20, **kwargs):
+	def __init__(self, *args, padding=50, **kwargs):
 		super().__init__(*args, **kwargs)
 		
 		self.width = kwargs["width"]
