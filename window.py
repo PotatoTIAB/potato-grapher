@@ -1,26 +1,30 @@
 from tkinter import *
+from time import sleep
 import math
 
 
-class Window(Tk):
-	def __init__(self, *args, **kwargs):
+class Grapher(Tk):
+	def __init__(self, *args, width, height, padding, precision, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.canvas = Plane(self, width=600, height=600, padding=20, background="#eeeeee")
+		self.canvas = Plane(self, width=width, height=height, padding=padding, precision=precision, background="#eeeeee")
 
 		self.canvas.pack()
-		# self.canvas.graph(lambda x: (x))
-		# self.canvas.graph(lambda x: (x**2))
-		self.canvas.graph(lambda x: math.sin(x))
+	
+
+	def graph(self, function: callable, precision=None):
+		self.canvas.graph(function, precision)
+		self.mainloop()
 
 
 
 class Plane(Canvas):
-	def __init__(self, *args, padding=50, **kwargs):
+	def __init__(self, *args, padding, precision, **kwargs):
 		super().__init__(*args, **kwargs)
 		
 		self.width = kwargs["width"]
 		self.height = kwargs["height"]
 		self.padding = padding
+		self.precision = precision
 
 		# self.bind("<Button-1>", self.on_click)
 		# self.bind("<B1-Motion>", self.on_motion)
@@ -53,14 +57,16 @@ class Plane(Canvas):
 		self.create_text(w//2-10, h//2+10, text=0)
 	
 	
-	def graph(self, function: callable, precision=10):
+	def graph(self, function: callable, precision):
+		if precision is None:
+			precision = self.precision
 		w, h, p, u = self.width, self.height, self.padding*precision, self.padding
 		x_range = w/p/2
 		y_range = w/p/2
 
 		prev_x = -x_range*precision
 		prev_y = function(-x_range)
-		print(f"f({prev_x}) = {prev_y}")
+		# print(f"f({prev_x}) = {prev_y}")
 		for x in range (int(-x_range*p+1), int(x_range*p)):
 			x = x/u
 			y = function(x)
@@ -71,5 +77,5 @@ class Plane(Canvas):
 
 
 if __name__ == "__main__":
-	root = Window()
+	root = Grapher()
 	root.mainloop()
